@@ -1,1 +1,0 @@
-/home/bilat/CBI/CoursCuda/toStudent/code/WCuda/Tuto_Boost/src/cpp/core/std/thread/Runnable_SDT.h
