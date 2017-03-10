@@ -35,7 +35,7 @@ using gpu::DomaineMath;
 /**
  * Override
  */
-Animable_I<uchar4>* MandelbrotProvider::createAnimable()
+Animable_I<uchar4>* DamierProvider::createAnimable()
     {
     DomaineMath domaineMath=DomaineMath(0,0,2*PI,2*PI);
 
@@ -55,13 +55,13 @@ Animable_I<uchar4>* MandelbrotProvider::createAnimable()
     dim3 db = dim3(coreMP, 2, 1);   	// disons, a optimiser selon le gpu, peut drastiqument ameliorer ou baisser les performances
     Grid grid(dg,db);
 
-    return new Mandelbrot(grid,dw, dh, dt,n,domaineMath);
+    return new Damier(grid,dw, dh, dt,n,domaineMath);
     }
 
 /**
  * Override
  */
-Image_I* MandelbrotProvider::createImageGL(void)
+Image_I* DamierProvider::createImageGL(void)
     {
     ColorRGB_01 colorTexte(0, 0, 0); // black
     return new ImageAnimable_RGBA_uchar4(createAnimable(), colorTexte);

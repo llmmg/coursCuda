@@ -86,7 +86,7 @@ void damier()
     {
     const int NB_ITERATION = 20000;
 
-    MandelbrotProvider provider;
+    DamierProvider provider;
     animer<uchar4>(&provider,NB_ITERATION);
     }
 

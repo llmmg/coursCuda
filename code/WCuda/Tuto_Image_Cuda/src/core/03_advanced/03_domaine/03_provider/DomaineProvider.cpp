@@ -31,7 +31,7 @@ using namespace gpu;
 
 Animable_I<uchar4>* DomaineProvider::createAnimable()
     {
-    MandelbrotProvider damierProvider;
+    DamierProvider damierProvider;
 
     return damierProvider.createAnimable();
     }

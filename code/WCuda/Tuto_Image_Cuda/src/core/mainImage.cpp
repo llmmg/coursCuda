@@ -62,7 +62,7 @@ int mainImage(Settings& settings)
     ImageOption nozoomable(false,true,false,true);
 
     Viewer<VagueProvider> vague(nozoomable, 25, 25); // imageOption px py
-    Viewer<MandelbrotProvider> damier(zoomable, 50, 50); // imageOption px py
+    Viewer<DamierProvider> damier(zoomable, 50, 50); // imageOption px py
 
     Viewer<EventProvider> event(nozoomable, 75, 75); // imageOption px py
     Viewer<OverlayProvider> overlay(nozoomable, 100, 100); // imageOption px py

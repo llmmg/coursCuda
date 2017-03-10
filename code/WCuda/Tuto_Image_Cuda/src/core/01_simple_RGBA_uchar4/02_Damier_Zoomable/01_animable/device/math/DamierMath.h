@@ -15,7 +15,7 @@ using namespace gpu;
  |*		Public			*|
  \*-------------------------------------*/
 
-class MandelbrotMath
+class DamierMath
     {
 
 	/*--------------------------------------*\
@@ -36,7 +36,7 @@ class MandelbrotMath
 	// 	IntervalF
 
 	__device__
-		 virtual ~MandelbrotMath()
+		 virtual ~DamierMath()
 	    {
 	    // rien
 	    }

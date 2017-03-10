@@ -37,7 +37,7 @@ __global__ void damier(uchar4* ptrDevPixels, uint w, uint h, DomaineMath domaine
  |*	Constructeur	    *|
  \*-------------------------*/
 
-Mandelbrot::Damier(const Grid& grid,uint w, uint h, float dt, uint n, const DomaineMath& domaineMath) :
+Damier::Damier(const Grid& grid,uint w, uint h, float dt, uint n, const DomaineMath& domaineMath) :
 	Animable_I<uchar4>(grid, w, h, "Damier_Cuda_RGBA_uchar4", domaineMath), variateurAnimation(Interval<float>(0, 2 * PI), dt)
     {
     // Inputs
@@ -47,7 +47,7 @@ Mandelbrot::Damier(const Grid& grid,uint w, uint h, float dt, uint n, const Doma
     this->t = 0;  // protected dans Animable
     }
 
-Mandelbrot::~Mandelbrot()
+Damier::~Damier()
     {
    // rien
     }
@@ -60,7 +60,7 @@ Mandelbrot::~Mandelbrot()
  * Override
  * Call periodicly by the API
  */
-void Mandelbrot::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath& domaineMath)
+void Damier::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath& domaineMath)
     {
     Device::lastCudaError("damier rgba uchar4 (before)"); // facultatif, for debug only, remove for release
 
@@ -73,7 +73,7 @@ void Mandelbrot::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath
  * Override
  * Call periodicly by the API
  */
-void Mandelbrot::animationStep()
+void Damier::animationStep()
     {
     this->t = variateurAnimation.varierAndGet(); // in [0,2pi]
     }

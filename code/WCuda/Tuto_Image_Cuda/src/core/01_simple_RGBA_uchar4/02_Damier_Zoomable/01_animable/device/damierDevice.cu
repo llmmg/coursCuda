@@ -40,7 +40,7 @@ __global__ void damier(uchar4* ptrDevPixels, uint w, uint h, DomaineMath domaine
 
 __global__ void damier(uchar4* ptrDevPixels, uint w, uint h, DomaineMath domaineMath, uint n, float t)
     {
-    MandelbrotMath damierMath = MandelbrotMath(n);
+    DamierMath damierMath = DamierMath(n);
 
     const int TID = Indice2D::tid();
     const int NB_THREAD = Indice2D::nbThread();

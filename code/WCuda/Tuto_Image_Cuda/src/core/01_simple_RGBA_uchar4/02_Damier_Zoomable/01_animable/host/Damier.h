@@ -15,7 +15,7 @@ using namespace gpu;
  |*		Public			*|
  \*-------------------------------------*/
 
-class Mandelbrot: public Animable_I<uchar4>
+class Damier: public Animable_I<uchar4>
     {
 	/*--------------------------------------*\
 	|*		Constructor		*|
@@ -24,7 +24,7 @@ class Mandelbrot: public Animable_I<uchar4>
     public:
 
 	Damier(const Grid& grid,uint w,uint h, float dt, uint n,const DomaineMath& domaineMath);
-	virtual ~Mandelbrot(void);
+	virtual ~Damier(void);
 
 	/*--------------------------------------*\
 	 |*		Methodes		*|
