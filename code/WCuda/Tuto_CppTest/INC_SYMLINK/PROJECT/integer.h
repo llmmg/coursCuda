@@ -1,1 +1,0 @@
-/home/bilat/CBI/CoursCuda/toStudent/code/WCuda/Tuto_CppTest/src/cpp/core/standard/integer/integer.h
