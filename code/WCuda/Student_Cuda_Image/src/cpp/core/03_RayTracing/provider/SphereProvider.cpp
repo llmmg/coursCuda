@@ -31,8 +31,8 @@ Animable_I<uchar4>* SphereProvider::createAnimable(void)
 
     Grid grid(dg, db);
 
-    Sphere* ptrTabSphere= new Sphere[nbSphere];
-    return new RayTracing(grid, dw, dh, nbSphere, dt, ptrTabSphere);
+//    Sphere* ptrTabSphere= new Sphere[nbSphere];
+    return new RayTracing(grid, dw, dh, nbSphere, dt/*, ptrTabSphere*/);
     }
 
 Image_I* SphereProvider::createImageGL(void)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SphereMath.h"
+#include "Sphere.h"
 
 #include "DomaineMath_GPU.h"
 
@@ -26,7 +27,7 @@ class RayTracing: public Animable_I<uchar4>
 
     public:
 
-	RayTracing(const Grid& grid, uint w, uint h,int nbSphere, float dt,Sphere* ptrTabSphere);
+	RayTracing(const Grid& grid, uint w, uint h,int nbSphere, float dt/*,Sphere* ptrTabSphere*/);
 
 	virtual ~RayTracing(void);
 
@@ -76,7 +77,7 @@ class RayTracing: public Animable_I<uchar4>
 	float dt;
 
 	//in/out ptr
-	Sphere* ptrTabSphere;
+//	Sphere* ptrTabSphere;
 
 	// Tools
 	Sphere* ptrDevTabSphere;

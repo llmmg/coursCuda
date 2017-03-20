@@ -33,21 +33,22 @@ extern __global__ void rayTracing(uchar4* ptrDevPixels,uint w, uint h, int nbSph
 /*-------------------------*\
  |*	Constructeur	    *|
  \*-------------------------*/
-RayTracing::RayTracing(const Grid& grid, uint w, uint h, int nbSphere, float dt, Sphere* ptrTabSphere) :
+RayTracing::RayTracing(const Grid& grid, uint w, uint h, int nbSphere, float dt/*, Sphere* ptrTabSphere*/) :
 	Animable_I<uchar4>(grid, w, h, "RayTracig_CUDA_RGBA_uchar4")
     {
 
     this->nbSphere = nbSphere;
-    this->ptrTabSphere = new Sphere[nbSphere];
+//    this->ptrTabSphere = new Sphere[nbSphere];
 //    this->w = w;
 //    this->h = h;
     this->dt = dt; // protected dans Animable
 
     SphereCreator sphereCreator(nbSphere, w, h);
-    ptrDevTabSphere = sphereCreator.getTabSphere();
+    Sphere* ptrTabSphere = sphereCreator.getTabSphere();
 
     // toGM(ptrTabSphere);
     this->sizeOctet = nbSphere * sizeof(Sphere);
+
     Device::malloc(&ptrDevTabSphere, sizeOctet);
     Device::memclear(ptrDevTabSphere, sizeOctet);
 
@@ -75,7 +76,7 @@ RayTracing::~RayTracing()
  *
  * Note : domaineMath pas use car pas zoomable
  */
-void RayTracing::process(uchar4* ptrDevPixels, uint w, uint h/*, int nbSphere, Sphere* ptrTabSphere*/,const DomaineMath& domaineMath)
+void RayTracing::process(uchar4* ptrDevPixels, uint w, uint h/*, int nbSphere, Sphere* ptrTabSphere*/, const DomaineMath& domaineMath)
     {
     Device::lastCudaError("fractale rgba uchar4 (before)"); // facultatif, for debug only, remove for release
 
