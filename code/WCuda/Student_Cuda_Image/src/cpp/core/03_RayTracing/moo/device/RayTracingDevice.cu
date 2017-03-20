@@ -2,30 +2,23 @@
 #include "cudaTools.h"
 #include "Device.h"
 
+#include "SphereMath.h"
+#include "RayTracing.h"
+#include "SphereCreator.h"
+
 #include "IndiceTools_GPU.h"
+#include "DomaineMath_GPU.h"
 
-#include "RipplingMath.h"
 using namespace gpu;
-
-// Attention : 	Choix du nom est impotant!
-//		VagueDevice.cu et non Vague.cu
-// 		Dans ce dernier cas, probl�me de linkage, car le nom du .cu est le meme que le nom d'un .cpp (host)
-//		On a donc ajouter Device (ou n'importequoi) pour que les noms soient diff�rents!
 
 /*----------------------------------------------------------------------*\
  |*			Declaration 					*|
  \*---------------------------------------------------------------------*/
 
 /*--------------------------------------*\
- |*		Imported	 	*|
- \*-------------------------------------*/
-
-/*--------------------------------------*\
  |*		Public			*|
  \*-------------------------------------*/
-
-__global__ void rippling(uchar4* ptrDevPixels, uint w, uint h, float t);
-
+__global__ void rayTracing(uchar4* ptrDevPixels, uint w, uint h, int nbSphere, float t, Sphere* ptrDevTabSphere);
 /*--------------------------------------*\
  |*		Private			*|
  \*-------------------------------------*/
@@ -38,9 +31,16 @@ __global__ void rippling(uchar4* ptrDevPixels, uint w, uint h, float t);
  |*		Public			*|
  \*-------------------------------------*/
 
-__global__ void rippling(uchar4* ptrDevPixels, uint w, uint h, float t)
+/*--------------------------------------*\
+ |*		Private			*|
+ \*-------------------------------------*/
+__global__ void rayTracing(uchar4* ptrDevPixels, uint w, uint h, int nbSphere, float t, Sphere* ptrDevTabSphere)
     {
-    RipplingMath ripplingMath = RipplingMath(w);
+
+    //math
+//    size_t sizeOctet = nbSphere * sizeof(Sphere);
+//    Device::memcpyHToD(ptrTabSphere, ptrDevTabSphere, sizeOctet);
+    SphereMath sphereMath = SphereMath(w, h, nbSphere, ptrDevTabSphere); // ici pour preparer cuda
 
     const int TID = Indice2D::tid();
     const int NB_THREAD = Indice2D::nbThread();
@@ -48,23 +48,24 @@ __global__ void rippling(uchar4* ptrDevPixels, uint w, uint h, float t)
 
     int i;
     int j;
-    int s = TID;
+
+    int s = TID; // in [0,...
     while (s < WH)
 	{
-	IndiceTools::toIJ(s, w, &i, &j);
+	IndiceTools::toIJ(s, w, &i, &j); // s[0,W*H[ --> i[0,H[ j[0,W[
 
-	ripplingMath.colorIJ(&ptrDevPixels[s], i, j, t);
+//	domainMath.toXY(i, j, &x, &y);
+	sphereMath.colorIJ(&ptrDevPixels[s], i, j, t);
 
 	s += NB_THREAD;
 	}
 
     }
-
 /*--------------------------------------*\
  |*		Private			*|
  \*-------------------------------------*/
 
+//    }
 /*----------------------------------------------------------------------*\
  |*			End	 					*|
  \*---------------------------------------------------------------------*/
-

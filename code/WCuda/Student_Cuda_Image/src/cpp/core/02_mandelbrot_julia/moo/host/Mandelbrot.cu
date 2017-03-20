@@ -2,12 +2,15 @@
 #include <assert.h>
 
 #include "Device.h"
-#include "Rippling.h"
+#include "Mandelbrot.h"
 #include <assert.h>
 
+#include "DomaineMath_GPU.h"
+#include "IndiceTools_GPU.h"
+
+using namespace gpu;
 using std::cout;
 using std::endl;
-
 /*----------------------------------------------------------------------*\
  |*			Declaration 					*|
  \*---------------------------------------------------------------------*/
@@ -15,16 +18,7 @@ using std::endl;
 /*--------------------------------------*\
  |*		Imported	 	*|
  \*-------------------------------------*/
-
-extern __global__ void rippling(uchar4* ptrDevPixels,uint w, uint h,float t);
-
-/*--------------------------------------*\
- |*		Public			*|
- \*-------------------------------------*/
-
-/*--------------------------------------*\
- |*		Private			*|
- \*-------------------------------------*/
+extern __global__ void mandelbrot(uchar4* ptrDevPixels,uint w, uint h, DomaineMath domaineMath,uint n,float dt);
 
 /*----------------------------------------------------------------------*\
  |*			Implementation 					*|
@@ -37,20 +31,18 @@ extern __global__ void rippling(uchar4* ptrDevPixels,uint w, uint h,float t);
 /*-------------------------*\
  |*	Constructeur	    *|
  \*-------------------------*/
-
-Rippling::Rippling(const Grid& grid, uint w, uint h, float dt) :
-	Animable_I<uchar4>(grid, w, h, "Rippling_Cuda_RGBA_uchar4")
+Mandelbrot::Mandelbrot(const Grid& grid, uint w, uint h, float dt, uint n, const DomaineMath& domaineMath) :
+	Animable_I<uchar4>(grid, w, h, "Mandelbrot_Julia_CUDA_RGBA_uchar4", domaineMath), variateurAnimation(Interval<float>(30, 100), dt)
     {
-    assert(w == h); // specific rippling
-
+    this->n = n;
     // Inputs
-    this->dt = dt;
+//    this->dt = 0;
 
-    // Tools
+// Tools
     this->t = 0; // protected dans Animable
     }
 
-Rippling::~Rippling()
+Mandelbrot::~Mandelbrot()
     {
     // rien
     }
@@ -65,24 +57,24 @@ Rippling::~Rippling()
  *
  * Note : domaineMath pas use car pas zoomable
  */
-void Rippling::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath& domaineMath)
+void Mandelbrot::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath& domaineMath)
     {
-    Device::lastCudaError("rippling rgba uchar4 (before kernel)"); // facultatif, for debug only, remove for release
+    Device::lastCudaError("fractale rgba uchar4 (before)"); // facultatif, for debug only, remove for release
 
-    // TODO lancer le kernel avec <<<dg,db>>>
+    mandelbrot<<<dg,db>>>(ptrDevPixels,w,h,domaineMath,n,t);
     // le kernel est importer ci-dessus (ligne 19)
-    rippling<<<dg,db>>>(ptrDevPixels,w,h,t);
 
-    Device::lastCudaError("rippling rgba uchar4 (after kernel)"); // facultatif, for debug only, remove for release
+    Device::lastCudaError("fractale rgba uchar4 (after)"); // facultatif, for debug only, remove for release
     }
 
 /**
  * Override
  * Call periodicly by the API
  */
-void Rippling::animationStep()
+void Mandelbrot::animationStep()
     {
-    t += dt;
+//    t += n;
+    n = variateurAnimation.varierAndGet();
     }
 
 /*--------------------------------------*\

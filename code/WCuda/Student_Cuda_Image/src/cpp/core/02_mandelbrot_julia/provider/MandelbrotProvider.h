@@ -41,11 +41,11 @@ using namespace gpu;
  * 		A vous de detruire les objets
  *
  */
-class RipplingProvider: public Provider_I<uchar4>
+class MandelbrotProvider: public Provider_I<uchar4>
     {
     public:
 
-	virtual ~RipplingProvider()
+	virtual ~MandelbrotProvider()
 	    {
 	    // Rien
 	    }
