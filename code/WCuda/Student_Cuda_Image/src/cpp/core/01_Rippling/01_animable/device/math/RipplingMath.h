@@ -16,68 +16,77 @@ using namespace gpu;
 
 class RipplingMath
     {
+
 	/*--------------------------------------*\
-	|*		Constructeur		*|
+	|*		Constructor		*|
 	 \*-------------------------------------*/
 
     public:
-__device__
-	RipplingMath(uint w)
+
+	__device__ RipplingMath(int w, int h)
 	    {
 	    this->dim2 = w / 2;
 	    }
 
-	// constructeur copie: pas besoin car pas attribut ptr
-__device__
-	virtual ~RipplingMath(void)
+	// constructeur copie automatique car pas pointeur dans VagueMath
+
+	__device__
+	   virtual ~RipplingMath()
 	    {
 	    // rien
 	    }
 
 	/*--------------------------------------*\
-	|*		Methode			*|
+	|*		Methodes		*|
 	 \*-------------------------------------*/
 
     public:
-__device__
-	void colorIJ(uchar4* ptrColorIJ, int i, int j, float t)
+
+	__device__
+	void colorIJ(uchar4* ptrColor, int i, int j, float t)
 	    {
 	    uchar levelGris;
 
-	    f(j, i, t, &levelGris); //levegris output a cause du &
+	    f(&levelGris, i, j, t); // update levelGris
 
-	    ptrColorIJ->x = levelGris;
-	    ptrColorIJ->y = levelGris;
-	    ptrColorIJ->z = levelGris;
+	    ptrColor->x = levelGris;
+	    ptrColor->y = levelGris;
+	    ptrColor->z = levelGris;
 
-	    ptrColorIJ->w = 255; //opaque
+	    ptrColor->w = 255; // opaque
 	    }
 
     private:
-__device__
-	void f(int i, int j, float t, uchar* ptrlevelGris)
+
+	__device__
+	void f(uchar* ptrLevelGris, int i, int j, float t)
 	    {
 	    // TODO cf fonction math pdf
 	    // use focntion dij ci-dessous
-	    float dij1;
-	    dij(i, j, &dij1);
-	    *ptrlevelGris = 128 + 127 * (cos(dij1 / 10 - t / 7) / (dij1 / 10 + 1));
+
+	    // Note
+	    //		Si code OMP focntionnel:
+	    // 			Step1 : Delete le contenur de ce fichier (si!),
+	    // 			Step2 : Copie-past le contenu de RipplingMath.h de omp,
+	    // 			Step3 : Ajouter __device__  devant methode et constructeur!
 	    }
-__device__
-	void dij(int i, int j, float* ptrResult)
+
+	__device__
+	float  dij(int i, int j)
 	    {
-	    double fi = i - dim2;
-	    double fj = j - dim2;
-	    *ptrResult = sqrt((fi * fi) + (fj * fj));
+	    //TODO cf fonction math pdf
+	    // return ...
+	    return 100;
 	    }
+
 	/*--------------------------------------*\
-	|*		Attribut			*|
+	|*		Attributs		*|
 	 \*-------------------------------------*/
 
     private:
 
 	// Tools
-	double dim2;
+	float dim2;
 
     };
 

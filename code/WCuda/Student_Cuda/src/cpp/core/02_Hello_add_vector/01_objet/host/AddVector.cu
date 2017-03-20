@@ -43,22 +43,15 @@ AddVector::AddVector(const Grid& grid, float* ptrV1, float* ptrV2, float* ptrW, 
 
 	// MM (malloc Device)
 	    {
-	    //malloc modifie le contenu du ptr
 	    Device::malloc(&ptrDevV1, sizeOctet);
-	    Device::malloc(&ptrDevV2, sizeOctet);
-	    Device::malloc(&ptrDevW, sizeOctet);
-
-	    //mem set
-	    Device::memclear(ptrDevV1, sizeOctet);
-	    Device::memclear(ptrDevV2, sizeOctet);
-	    Device::memclear(ptrDevW, sizeOctet);
+	    // TODO ptrV2
+	    // TODO ptrW
 	    }
 
 	// MM (copy Host->Device)
 	    {
 	    Device::memcpyHToD(ptrDevV1, ptrV1, sizeOctet);
-	    Device::memcpyHToD(ptrDevV2, ptrV2, sizeOctet);
-	    //pas pour W car n'existe pas coté host
+	    // TODO ptrV2
 	    }
 
 	Device::lastCudaError("AddVector MM (end allocation)"); // temp debug, facultatif
@@ -76,8 +69,8 @@ AddVector::~AddVector(void)
     //MM (device free)
 	{
 	Device::free(ptrDevV1);
-	Device::free(ptrDevV2);
-	Device::free(ptrDevW);
+	// TODO ptrV2
+	// TODO ptrW
 
 	Device::lastCudaError("AddVector MM (end deallocation)"); // temp debug, facultatif
 	}
@@ -93,7 +86,7 @@ void AddVector::run()
     addVector<<<dg,db>>>(ptrDevV1, ptrDevV2, ptrDevW, n); // assynchrone
     Device::lastCudaError("addVecteur (after)"); // temp debug
 
-//    Device::synchronize(); // Temp,debug, only for printf in  GPU
+    Device::synchronize(); // Temp,debug, only for printf in  GPU
 
     // MM (Device -> Host)
 	{

@@ -6,7 +6,6 @@
 #include "ProviderGridMaillage2D.h"
 
 #include "RipplingProvider.h"
-#include "MandelbrotProvider.h"
 
 #include "Animateur_GPU.h"
 #include "Settings_GPU.h"
@@ -34,8 +33,6 @@ int mainBrutForce(Settings& settings);
  \*-------------------------------------*/
 
 static void rippling();
-static void mandelbrot();
-
 
 // tools
 template<typename T>
@@ -53,8 +50,7 @@ int mainBrutForce(Settings& settings)
     {
     cout << "\n[BruteForce] mode" << endl;
 
-    // rippling();
-    mandelbrot();
+    rippling();
 
     cout << "\n[BruteForce] end" << endl;
 
@@ -70,11 +66,7 @@ void rippling()
     RipplingProvider provider;
     bruteForce<uchar4>(&provider, "Rippling_RGBA_uchar4");
     }
-void mandelbrot()
-    {
-    MandelbrotProvider provider;
-    bruteForce<uchar4>(&provider, "Rippling_RGBA_uchar4");
-    }
+
 /*--------------------------------------*\
  |*		Tools			*|
  \*-------------------------------------*/
@@ -89,10 +81,10 @@ void bruteForce(Provider_I<T>* ptrProvider, string titre)
     const int NB_ITERATION_ANIMATOR = 1000;
 
     // Define Grid
-    int mp = Device::getMPCount();
-    int coreMp = Device::getCoreCountMP();
-    int nbThreadBlockMax = Device::getMaxThreadPerBlock();
-    int warpSize = Device::getWarpSize();
+    int mp=Device::getMPCount();
+    int coreMp=Device::getCoreCountMP();
+    int nbThreadBlockMax=Device::getMaxThreadPerBlock();
+    int warpSize=Device::getWarpSize();
 
     VariateurData variateurDg(mp, 8 * mp, mp); 				// (min,max,step) 	Attention : A definir intelligement selon le GPU !
     VariateurData variateurDb(coreMp, nbThreadBlockMax, warpSize); 	// (min,max,step) 	Attention : A definir intelligement selon le GPU !
