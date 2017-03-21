@@ -33,7 +33,7 @@ class SphereMath
 	// constructeur copie automatique car pas pointeur dans VagueMath
 
 	__device__
-	        virtual ~SphereMath()
+	            virtual ~SphereMath()
 	    {
 	    // rien
 	    }
@@ -55,19 +55,17 @@ class SphereMath
 	    float hCarre;
 	    float dz;
 	    float distance;
-	    float minDist = 5000;
-
+	    float minDist = 50000;
 	    float h, b;
 
+	    //Init to black
+	    ptrColor->x = 0;
+	    ptrColor->y = 0;
+	    ptrColor->z = 0;
+
 	    //boucle for qui parcours toute les sphere, regarde si elles sont au dessus
-
-	    //	    Sphere sphereK;
-
 	    for (int k = 0; k < nbSpheres; k++)
 		{
-//		sphereK = ptrDevTabSphere[k];
-//		hCarre = sphereK.hCarre(xySol);
-
 		hCarre = ptrDevTabSphere[k].hCarre(xySol);
 		if (ptrDevTabSphere[k].isEnDessous(hCarre))
 		    {
@@ -77,18 +75,11 @@ class SphereMath
 		    if (minDist > distance)
 			{
 			minDist = distance;
-//			*ptrColor-> = sphereK.brightness(dz);
 			b = ptrDevTabSphere[k].brightness(dz);
-//			h = f(sphereK.getHueStart(), t);
-			h = ptrDevTabSphere[k].hue(t);
+//			h = ptrDevTabSphere[k].hue(t);
+			h = f(ptrDevTabSphere[k].getHueStart(),t);
 			ColorTools::HSB_TO_RVB(h, 1, b, ptrColor);
-
-			}else
-			    {
-			    ptrColor->x=50;
-			    ptrColor->y=50;
-			    ptrColor->z=50;
-			    }
+			}
 		    }
 
 		}

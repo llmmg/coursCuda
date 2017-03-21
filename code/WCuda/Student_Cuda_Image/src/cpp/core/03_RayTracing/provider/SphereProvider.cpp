@@ -13,10 +13,10 @@ using namespace gpu;
 Animable_I<uchar4>* SphereProvider::createAnimable(void)
     {
     // Animation;
-//    float dt = 2 * PI / 800;
-    float dt = 0;
+    float dt = 2 * PI / 800;
+//    float dt = 0;
 
-    int nbSphere = 50;
+    int nbSphere = 100;
 
     // Dimension
     int dw = 16 * 80;

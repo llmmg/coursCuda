@@ -57,7 +57,7 @@ RayTracing::RayTracing(const Grid& grid, uint w, uint h, int nbSphere, float dt/
     //  toCM(ptrTabSphere);
     //???
 
-    //TODO: verifier les pointeurs et sense des allocation
+    //TODO: verifier les pointeurs et sens des allocation
     }
 
 RayTracing::~RayTracing()
