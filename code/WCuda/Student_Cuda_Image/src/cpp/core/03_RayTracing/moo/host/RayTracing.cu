@@ -34,7 +34,7 @@ extern __global__ void rayTracing(uchar4* ptrDevPixels,uint w, uint h, int nbSph
  |*	Constructeur	    *|
  \*-------------------------*/
 RayTracing::RayTracing(const Grid& grid, uint w, uint h, int nbSphere, float dt/*, Sphere* ptrTabSphere*/) :
-	Animable_I<uchar4>(grid, w, h, "RayTracig_CUDA_RGBA_uchar4")
+	Animable_I<uchar4>(grid, w, h, "RayTracig_CUDA_RGBA_uchar4"), variateurAnimation(Interval<float>(0.0, 1.0), dt)
     {
 
     this->nbSphere = nbSphere;
@@ -55,10 +55,22 @@ RayTracing::RayTracing(const Grid& grid, uint w, uint h, int nbSphere, float dt/
     Device::memcpyHToD(ptrDevTabSphere, ptrTabSphere, sizeOctet);
 
     //  toCM(ptrTabSphere);
-    //???
 
-    //TODO: verifier les pointeurs et sens des allocation
+
+
     }
+//TODO:
+//void RayTracing::toGm(Sphere* ptrTabSphere)
+//    {
+//
+//    // toGM(ptrTabSphere);
+//    this->sizeOctet = nbSphere * sizeof(Sphere);
+//
+//    Device::malloc(&ptrDevTabSphere, sizeOctet);
+//    Device::memclear(ptrDevTabSphere, sizeOctet);
+//
+//    Device::memcpyHToD(ptrDevTabSphere, ptrTabSphere, sizeOctet);
+//    }
 
 RayTracing::~RayTracing()
     {
@@ -94,8 +106,8 @@ void RayTracing::process(uchar4* ptrDevPixels, uint w, uint h/*, int nbSphere, S
  */
 void RayTracing::animationStep()
     {
-    t += dt;
-//    n = variateurAnimation.varierAndGet();
+//    t += dt;
+    dt = variateurAnimation.varierAndGet();
     }
 
 /*--------------------------------------*\

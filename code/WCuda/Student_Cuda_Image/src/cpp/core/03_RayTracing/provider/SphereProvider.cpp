@@ -13,8 +13,8 @@ using namespace gpu;
 Animable_I<uchar4>* SphereProvider::createAnimable(void)
     {
     // Animation;
-    float dt = 2 * PI / 800;
-//    float dt = 0;
+//    float dt = 2 * PI / 800;
+    float dt = 0.01;
 
     int nbSphere = 100;
 
@@ -37,6 +37,6 @@ Animable_I<uchar4>* SphereProvider::createAnimable(void)
 
 Image_I* SphereProvider::createImageGL(void)
     {
-    ColorRGB_01 colorTexte(0, 0, 0); // black
+    ColorRGB_01 colorTexte(1, 0, 0); // black
     return new ImageAnimable_RGBA_uchar4(createAnimable(), colorTexte);
     }

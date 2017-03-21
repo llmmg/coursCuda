@@ -82,7 +82,7 @@ class RayTracing: public Animable_I<uchar4>
 	// Tools
 	Sphere* ptrDevTabSphere;
 	int nbSphere;
-//	Variateur<float> variateurAnimation;
+	Variateur<float> variateurAnimation;
 	size_t sizeOctet;
 
     };

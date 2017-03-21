@@ -76,8 +76,8 @@ class SphereMath
 			{
 			minDist = distance;
 			b = ptrDevTabSphere[k].brightness(dz);
-//			h = ptrDevTabSphere[k].hue(t);
-			h = f(ptrDevTabSphere[k].getHueStart(),t);
+			h = ptrDevTabSphere[k].hue(t);
+//			h = f(ptrDevTabSphere[k].getHueStart(),t);
 			ColorTools::HSB_TO_RVB(h, 1, b, ptrColor);
 			}
 		    }
