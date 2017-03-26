@@ -59,12 +59,12 @@ Mandelbrot::~Mandelbrot()
  */
 void Mandelbrot::process(uchar4* ptrDevPixels, uint w, uint h, const DomaineMath& domaineMath)
     {
-    Device::lastCudaError("fractale rgba uchar4 (before)"); // facultatif, for debug only, remove for release
+//    Device::lastCudaError("fractale rgba uchar4 (before)"); // facultatif, for debug only, remove for release
 
     mandelbrot<<<dg,db>>>(ptrDevPixels,w,h,domaineMath,n,t);
     // le kernel est importer ci-dessus (ligne 19)
 
-    Device::lastCudaError("fractale rgba uchar4 (after)"); // facultatif, for debug only, remove for release
+//    Device::lastCudaError("fractale rgba uchar4 (after)"); // facultatif, for debug only, remove for release
     }
 
 /**

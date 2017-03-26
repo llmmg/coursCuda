@@ -53,9 +53,9 @@ int mainImage(Settings& settings)
     ImageOption zoomable(true);
     ImageOption nozoomable(false);
 
-//    Viewer<RipplingProvider> vague(nozoomable, 25, 25); // imageOption px py
-//    Viewer<MandelbrotProvider> mandelbrot(zoomable, 25, 25); // imageOption px py
-    Viewer<SphereProvider> sphere(nozoomable, 25, 25);
+    Viewer<RipplingProvider> vague(nozoomable, 25, 25); // imageOption px py
+    Viewer<MandelbrotProvider> mandelbrot(zoomable, 400, 600); // imageOption px py
+    Viewer<SphereProvider> sphere(nozoomable, 1200, 800);
 
     // Common
     GLUTImageViewers::runALL(); // Bloquant, Tant qu'une fenetre est ouverte

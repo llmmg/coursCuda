@@ -57,7 +57,7 @@ class Sphere
 	__device__
 	float hue(float t) // usefull for animation
 	    {
-	    return 0.5f + 0.5f * sinf(t + T + 3 * PI_FLOAT / 2);
+	    return 0.5f + 0.5f * sinf(t + T + 3.0 * PI_FLOAT / 2.0);
 	    }
     private:
 // Inputs

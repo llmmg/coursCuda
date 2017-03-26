@@ -85,6 +85,8 @@ class RayTracing: public Animable_I<uchar4>
 	Variateur<float> variateurAnimation;
 	size_t sizeOctet;
 
+	int wlocal;
+	int hlocal;
     };
 
 /*----------------------------------------------------------------------*\

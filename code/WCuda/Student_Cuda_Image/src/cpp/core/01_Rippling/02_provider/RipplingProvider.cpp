@@ -37,8 +37,8 @@ Animable_I<uchar4>* RipplingProvider::createAnimable()
     float dt = 2 * PI / 10;
 
     // Dimension
-    int dw = 16 * 60;
-    int dh = 16 * 60;
+    int dw = 16 * 50;
+    int dh = 16 * 50;
 
     // Grid Cuda
     int mp = Device::getMPCount();

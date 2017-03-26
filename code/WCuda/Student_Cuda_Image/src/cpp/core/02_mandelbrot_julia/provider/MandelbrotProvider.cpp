@@ -52,8 +52,8 @@ Animable_I<uchar4>* MandelbrotProvider::createAnimable(void)
     int n = 100;
 
     // Dimension
-    int dw = 16 * 80;
-    int dh = 16 * 80;
+    int dw = 16 * 50;
+    int dh = 16 * 50;
     // Grid Cuda
     int mp = Device::getMPCount();
     int coreMP = Device::getCoreCountMP();
