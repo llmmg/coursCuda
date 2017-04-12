@@ -35,6 +35,7 @@ class MonteCarlo
 	size_t sizeOctetSM;
 	size_t sizeOctetGM;
 
+	int nbThrowRes;
 	float result;
 
     };

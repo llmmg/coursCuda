@@ -37,8 +37,8 @@ bool useMonteCarlo(void);
 
 bool useMonteCarlo()
     {
-    int nbFlech = 30;
-    float m = 1234;
+    int nbFlech = 3000000;
+    float m = 100;
     // Grid cuda
 //    int mp = Device::getMPCount();
 //    int coreMP = Device::getCoreCountMP();

@@ -5,6 +5,8 @@
  |*			Declaration 					*|
  \*---------------------------------------------------------------------*/
 extern __global__ void monteCarlo(curandState* tabDevGeneratorGM, int nbFlechettes, float m,int* ptrDevNx);
+extern __global__ void setup_kernel_rand(curandState* tabDevGenerator, int deviceId);
+
 /*--------------------------------------*\
  |*		Public			*|
  \*-------------------------------------*/
@@ -27,7 +29,7 @@ MonteCarlo::MonteCarlo(const Grid& grid, int nbFlechettes, float m)
 
     this->nbFlechette = nbFlechettes;
     this->m = m;
-    this->sizeOctetSM = grid.db.x * grid.db.y * sizeof(int);
+    this->sizeOctetSM = grid.db.x * grid.db.y * grid.db.z* sizeof(int);
     this->sizeOctetGM = sizeof(int);
 
     int nbThreads = grid.threadCounts();
@@ -39,27 +41,32 @@ MonteCarlo::MonteCarlo(const Grid& grid, int nbFlechettes, float m)
     Device::malloc(&ptrDevGenerator, sizeGen);
     Device::memclear(ptrDevGenerator, sizeGen);
 
-    }
+    setup_kernel_rand<<<dg,db>>>(ptrDevGenerator, Device::getDeviceId());
+
+}
 
 MonteCarlo::~MonteCarlo(void)
-    {
+{
 //MM (device free)
-	{
-	Device::free(ptrDevNx);
-	}
+    {
+    Device::free(ptrDevNx);
+    Device::free(ptrDevGenerator);
     }
+}
 
 void MonteCarlo::process()
-    {
+{
     monteCarlo<<<dg,db,sizeOctetSM>>>(ptrDevGenerator,nbFlechette, m,ptrDevNx);
 
-//    Device::memcpyDToH(&result, ptrDevNx, sizeOctetGM);
-    }
+    Device::memcpyDToH(&nbThrowRes, ptrDevNx, sizeOctetGM);
+
+    result = (float)nbThrowRes / (float)nbFlechette *m;
+}
 
 float MonteCarlo::getResult()
-    {
-    return this->result;
-    }
+{
+return this->result;
+}
 /*--------------------------------------*\
  |*		Private			*|
  \*-------------------------------------*/
