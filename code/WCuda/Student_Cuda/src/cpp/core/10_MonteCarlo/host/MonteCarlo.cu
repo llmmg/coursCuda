@@ -63,6 +63,11 @@ void MonteCarlo::process()
     result = (float)nbThrowRes / (float)nbFlechette *m;
 }
 
+int MonteCarlo::getCountFlechettesSousCourbe()
+    {
+    return nbThrowRes;
+    }
+
 float MonteCarlo::getResult()
 {
 return this->result;

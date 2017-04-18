@@ -1,4 +1,5 @@
 #include <curand_kernel.h>
+#include "Device.h"
 
 /*----------------------------------------------------------------------*\
  |*			Declaration 					*|
@@ -8,36 +9,36 @@
  |*		Public			*|
  \*-------------------------------------*/
 
-class MonteCarlo
+class MonteCarloMulti
     {
     public:
 
-	MonteCarlo(const Grid& grid, int nbFlechettes, float m);
+	MonteCarloMulti(const Grid& grid, int nbFlechettes, float m);
 
-	virtual ~MonteCarlo();
+	virtual ~MonteCarloMulti();
 
     public:
 
 	void process();
 	float getResult();
-	int getCountFlechettesSousCourbe();
+
+private:
+	void reduce(int* tab);
 
     private:
 
-	dim3 dg;
-	dim3 db;
+
+	Grid grid;
 
 	int nbFlechette;
 	float m;
+	int nbDevice;
 
-	int* ptrDevNx;
-	curandState* ptrDevGenerator=NULL;
 
-	size_t sizeOctetSM;
-	size_t sizeOctetGM;
-
-	int nbThrowRes;
 	float result;
+	int* tabResult;
+	int nbFlechTot;
+
 
     };
 

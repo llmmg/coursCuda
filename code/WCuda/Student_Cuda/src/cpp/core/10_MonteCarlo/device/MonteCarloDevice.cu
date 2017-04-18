@@ -68,7 +68,7 @@ __device__ void reduceIntraThread(int* tab_SM, int nbFlechette, curandState* tab
 	yAlea = curand_uniform(&localGenerator) * m;
 
 	y = f(xAlea);
-	if (y < yAlea)
+	if (y >= yAlea)
 	    {
 	    nx++;
 	    }

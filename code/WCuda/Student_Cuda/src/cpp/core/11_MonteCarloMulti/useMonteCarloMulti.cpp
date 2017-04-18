@@ -2,7 +2,7 @@
 #include "Grid.h"
 #include "Device.h"
 
-#include "MonteCarlo.h"
+#include "MonteCarloMulti.h"
 
 using std::cout;
 using std::endl;
@@ -21,7 +21,7 @@ using std::endl;
  |*		Public			*|
  \*-------------------------------------*/
 
-bool useMonteCarlo(void);
+bool useMonteCarloMulti(void);
 
 /*--------------------------------------*\
  |*		Private			*|
@@ -35,10 +35,10 @@ bool useMonteCarlo(void);
  |*		Public			*|
  \*-------------------------------------*/
 
-bool useMonteCarlo()
+bool useMonteCarloMulti()
     {
-    int nbFlech = 100000000;
-    float m = 100;
+    int nbFlech = INT_MAX;
+    float m = 10;
     // Grid cuda
 //    int mp = Device::getMPCount();
 //    int coreMP = Device::getCoreCountMP();
@@ -47,7 +47,8 @@ bool useMonteCarlo()
     dim3 db = dim3(128, 1, 1);   	// disons, a optimiser selon le gpu, peut drastiqument ameliorer ou baisser les performances
     Grid grid(dg, db);
 
-    MonteCarlo montecarlo(grid, nbFlech, m);
+
+    MonteCarloMulti montecarlo(grid, nbFlech, m);
     montecarlo.process();
     float pi= montecarlo.getResult();
 

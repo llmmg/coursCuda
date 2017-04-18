@@ -15,7 +15,8 @@ using std::endl;
 
 extern bool useHello(void);
 extern bool useAddVecteur(void);
-extern bool useMonteCarlo(void);
+//extern bool useMonteCarlo(void);
+extern bool useMonteCarloMulti(void);
 
 /*--------------------------------------*\
  |*		Public			*|
@@ -42,7 +43,8 @@ int mainCore()
     bool isOk = true;
 //    isOk &= useHello();
 //    isOk &=useAddVecteur();
-    isOk &=useMonteCarlo();
+//    isOk &=useMonteCarlo();
+    isOk &= useMonteCarloMulti();
 
     cout << "\nisOK = " << isOk << endl;
     cout << "\nEnd : mainCore" << endl;
