@@ -15,9 +15,10 @@ using std::endl;
 
 extern bool useHello(void);
 extern bool useAddVecteur(void);
-//extern bool useMonteCarlo(void);
+extern bool useMonteCarlo(void);
 extern bool useMonteCarloMulti(void);
-
+extern bool useHistogramme(void);
+extern bool useSlice(void);
 /*--------------------------------------*\
  |*		Public			*|
  \*-------------------------------------*/
@@ -43,8 +44,10 @@ int mainCore()
     bool isOk = true;
 //    isOk &= useHello();
 //    isOk &=useAddVecteur();
-//    isOk &=useMonteCarlo();
-    isOk &= useMonteCarloMulti();
+//	isOk &=useMonteCarlo();
+//    isOk &= useMonteCarloMulti();
+    isOk &= useHistogramme();
+//    isOk &= useSlice();
 
     cout << "\nisOK = " << isOk << endl;
     cout << "\nEnd : mainCore" << endl;

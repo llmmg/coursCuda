@@ -1,4 +1,7 @@
+#pragma once
 
+#include "cudaTools.h"
+#include "Grid.h"
 
 /*----------------------------------------------------------------------*\
  |*			Declaration 					*|
@@ -10,8 +13,48 @@
 
 class Slice
     {
-    };
+	/*--------------------------------------*\
+	|*		Constructor		*|
+	 \*-------------------------------------*/
 
+    public:
+
+	/**
+	 * update w by v1+v2
+	 */
+	Slice(const Grid& grid, int nbSlice);
+
+	virtual ~Slice(void);
+
+	/*--------------------------------------*\
+	|*		Methodes		*|
+	 \*-------------------------------------*/
+
+    public:
+
+	void run();
+	float getResult();
+
+	/*--------------------------------------*\
+	|*		Attributs		*|
+	 \*-------------------------------------*/
+
+    private:
+
+	// Inputs
+	dim3 dg;
+	dim3 db;
+	int nbSlice;
+
+	// Inputs/Outputs
+	float result;
+
+	// Tools
+	size_t sizeOctetSM;
+	size_t sizeOctetGM;
+	float* ptrDevGMResult=NULL;
+
+    };
 
 /*----------------------------------------------------------------------*\
  |*			End	 					*|

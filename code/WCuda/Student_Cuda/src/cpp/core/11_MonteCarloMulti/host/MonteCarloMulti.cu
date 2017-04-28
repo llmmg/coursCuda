@@ -50,7 +50,7 @@ MonteCarloMulti::~MonteCarloMulti(void)
 void MonteCarloMulti::process()
     {
     Chrono chrono;
-//#pragma omp parallel for
+    #pragma omp parallel for
     for (int deviceId = 0; deviceId < nbDevice; deviceId++)
 	{
 	Device::setDevice(deviceId);

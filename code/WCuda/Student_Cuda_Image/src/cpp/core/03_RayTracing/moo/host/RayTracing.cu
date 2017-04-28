@@ -95,7 +95,7 @@ RayTracing::~RayTracing()
 void RayTracing::process(uchar4* ptrDevPixels, uint w, uint h/*, int nbSphere, Sphere* ptrTabSphere*/, const DomaineMath& domaineMath)
     {
 //    Device::lastCudaError("fractale rgba uchar4 (before)"); // facultatif, for debug only, remove for release
-    static int i = 0;
+    static int i = 2;
 
     if (i % 3 == 0)
 	{
